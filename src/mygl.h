@@ -40,6 +40,33 @@ void putPixel(Pixel p) {
 	FBptr[adress + 3] = p.color.A;
 }
 
+void drawLine(Line l) {
+	int dx = l.pB.x - l.pA.x;
+	int dy = l.pB.y - l.pA.y;
+	int d = 2 * dy - dx;
+	int addE = 2 * dy;
+	int addNE = 2 * (dy - dx);
+	unsigned int x = l.pA.x;
+	unsigned int y = l.pB.x;
+
+	Pixel pixel = { x, y, l.pB.color };
+	Pixel *p = &pixel;
+
+	putPixel(pixel);
+
+	while (pixel.x < l.pB.x) {
+		if (d <= 0) {
+			d += addE;
+			p->x++;
+		} else {
+			d += addNE;
+			p->x++;
+			p->y++;
+		}
+
+		putPixel(pixel);
+	}
+}
 
 #endif // _MYGL_H_
 
