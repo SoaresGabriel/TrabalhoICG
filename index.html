@@ -19,8 +19,8 @@
     </section>
 
     <section class="main-content">
-      <h1>
-<a id="introdução" class="anchor" href="#introdu%C3%A7%C3%A3o" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introdução</h1>
+      <h2>
+<a id="introdução" class="anchor" href="#introdu%C3%A7%C3%A3o" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introdução</h2>
 
 <p>Este post faz parte do primeiro trabalho da disciplina Introdução à Computação Gráfica, ministrada pelo Prof. Christian Azambuja Pagot da UFPB, no período 2016.1.</p>
 
@@ -47,6 +47,45 @@
 <p>Obviamente um monitor pode comportar um número limitado de pixels, então qualquer objeto que queiramos mostrar em uma tela, será formado por um conjunto finito de pixels. </p>
 
 <p>Mas uma reta, por exemplo, é um objeto contínuo: pegando um ponto da reta, não conseguimos definir qual é o próximo ponto, pois entre quaisquer dois pontos de uma reta, existem infinitos pontos, não importa o quão próximos eles estejam. Dessa forma, para desenhar uma reta outro objeto continuo em uma tela, precisamos criar uma aproximação discreta que poderá ser representada por um conjunto finito de pontos, esse processo é chamado de <strong>rasterização</strong>.</p>
+
+<h1>
+<a id="desenvolvimento-do-projeto" class="anchor" href="#desenvolvimento-do-projeto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Desenvolvimento do Projeto</h1>
+
+<p>Com essa noção básica, podemos começar a desenvolver o projeto, ele consiste basicamente em desenvolver três funções:</p>
+
+<ul>
+<li>
+<strong>putPixel</strong> - Rasterizar ponto (ou Pixel), com sua devida cor.</li>
+<li>
+<strong>drawLine</strong> - Rasterizar linha, deve ter interpolação linear de cores</li>
+<li>
+<strong>drawTriangle</strong> - Rasterizar triângulo</li>
+</ul>
+
+<p>Para simplificar, na implementação foi definido algumas estruturas básicas:</p>
+
+<ul>
+<li>
+<strong>Color</strong> - Composta por suas componentes RGBA</li>
+<li>
+<strong>Pixel</strong> - Tem as coordenadas x, y, e a cor (tipo Color).</li>
+<li>
+<strong>Line</strong> - Formada por dois Pixels, que são suas extremidades</li>
+<li>
+<strong>Triangle</strong> - Composta por 3 Pixels que representam seus vértices</li>
+</ul>
+
+<h2>
+<a id="rasterização-de-pontos---putpixel" class="anchor" href="#rasteriza%C3%A7%C3%A3o-de-pontos---putpixel" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rasterização de Pontos - putPixel</h2>
+
+<p>Já vimos como os pixels são armazenados na memória e também vimos como calcular o endereço de memoria de um pixel. Através framework disponibilizado pelo professor temos o ponteiro FBptr que aponta para o endereço do primeiro byte do ColorBuffer(simulado). Com tudo isso em mãos, fica fácil implementar o putPixel: Calculamos o endereço do pixel com a expressão vista anteriormente, <code>e = x*4 + y*W*4</code>, e adicionamos ao ponteiro FBptr, para obter a posição do primeiro byte do Pixel, e como o pixel é composto por 4bytes, uma para cada componente, ficamos com (usarei notação de array por conveniência):</p>
+
+<ul>
+<li>Fbptr[e+0] - Aqui escrevemos a componente R da cor do pixel</li>
+<li>Fbptr[e+1] - Da mesma forma, escrevemos aqui a componente G</li>
+<li>Fbptr[e+2] - Aqui vai a componente B</li>
+<li>Fbptr[e+3] - E por último o A</li>
+</ul>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/SoaresGabriel/TrabalhoICG">TrabalhoICG</a> is maintained by <a href="https://github.com/SoaresGabriel">SoaresGabriel</a>.</span>
