@@ -84,7 +84,18 @@
 <li>Fbptr[e+0] - Aqui escrevemos a componente R da cor do pixel</li>
 <li>Fbptr[e+1] - Da mesma forma, escrevemos aqui a componente G</li>
 <li>Fbptr[e+2] - Aqui vai a componente B</li>
-<li>Fbptr[e+3] - E por último o A</li>
+<li>Fbptr[e+3] - E por último o A
+Após escrevermos essas componentes já temos nosso pixel desenhado.</li>
+</ul>
+
+<h2>
+<a id="rasterização-de-linhas---drawline" class="anchor" href="#rasteriza%C3%A7%C3%A3o-de-linhas---drawline" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rasterização de Linhas - drawLine</h2>
+
+<p>Já abordamos um dos problemas de rasterizar uma Reta em uma tela que é formada por Pixel, agora veremos como podemos fazer essa representação discreta de uma reta contínua. Mas antes precisamos ter mais algumas coisas em mente:</p>
+
+<ul>
+<li>Uma reta ideal não tem espessura(apenas suas representações gráficas), portanto na tela, ela deve ser formada pela menor quantidade de pixels possíveis, desde que não comprometam sua representatividade. </li>
+<li>Numa situação real, uma função de desenhar linhas, seria usada com bastante frequência, então ela deve ser o mais eficiente possível (precisar de menos recurso computacional).</li>
 </ul>
 
       <footer class="site-footer">
