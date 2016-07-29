@@ -25,8 +25,20 @@ typedef struct Triangle {
 	Pixel vA;
 	Pixel vB;
 	Pixel vC;
-};
+} Triangle;
 
+unsigned int getMemoryAdress(Pixel p) {
+	return (p.x) * 4 + (p.y) * IMAGE_WIDTH * 4;
+}
+
+void putPixel(Pixel p) {
+	unsigned int adress = getMemoryAdress(p);
+
+	FBptr[adress] = p.color.R;
+	FBptr[adress + 1] = p.color.G;
+	FBptr[adress + 2] = p.color.B;
+	FBptr[adress + 3] = p.color.A;
+}
 
 
 #endif // _MYGL_H_
