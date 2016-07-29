@@ -26,12 +26,12 @@
 
 <p>Deve ser implementado um algoritmo para rasterização de pontos, linhas e triângulos, para isso, será usado um framework disponibilizado pelo próprio professor, que simula o acesso a memória, mais especificamente simula acesso ao ColorBuffer do FrameBuffer, onde fica as informações da imagem que aparece na tela do computador.</p>
 
-<h2>
-<a id="pixels" class="anchor" href="#pixels" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pixels</h2>
+<h3>
+<a id="pixels" class="anchor" href="#pixels" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pixels</h3>
 
-<p>Os monitores exibem as imagens através de um conjuntos de pontos, chamados de pixel, dessa forma, um monitor tem W pixels de largura e H pixels de altura, como se fosse uma matriz W por H.</p>
+<p>Os monitores exibem as imagens através de um conjuntos de pontos, chamados de pixel, dessa forma, um monitor tem W pixels de largura e H pixels de altura, como se fosse uma matriz W por H. Obviamente um monitor pode comportar um número limitado de pixels, então qualquer objeto que queiramos mostrar em uma tela, será formado por um conjunto finito de pixels. </p>
 
-<p>Obviamente um monitor pode comportar um número finito de pixels, então não há como representar com exatidão um objeto continuo, pois os pixels constituem um espaço discreto.</p>
+<p>Mas uma reta, por exemplo, é um objeto contínuo: pegando um ponto da reta, não conseguimos definir qual é o próximo ponto, pois entre quaisquer dois pontos de uma reta, existem infinitos pontos, não importa o quão próximos eles estejam. Dessa forma, para desenhar uma reta outro objeto continuo em uma tela, precisamos criar uma aproximação discreta que poderá ser representada por um conjunto finito de pontos, esse processo é chamado de <strong>rasterização</strong>.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/SoaresGabriel/TrabalhoICG">TrabalhoICG</a> is maintained by <a href="https://github.com/SoaresGabriel">SoaresGabriel</a>.</span>
