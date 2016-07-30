@@ -153,6 +153,12 @@ E no caso do pixel 'ne':
 
 <p>A reta foi rasterizada corretamente, e como previsto anteriormente, a reta do 4° octante também foi desenhada.</p>
 
+<p>Para o octante 2 podemos trocar as coordenadas x e y de cada ponto de forma que ele é refletido para o octante 1 em relação a diagonal, nosso algorítimo consegue calcular os pontos para uma reta do primeiro octante, e depois de fazer o calculo, basta que troquemos novamente as coordenadas, para espelharmos de volta para o segundo octante. Fica mais ou menos assim: <code>se Δx &lt; Δy -&gt; permuta coordenadas dos pontos</code>, e na hora de desenhar na tela, permutamos novamente para voltar ao octante 2. E assim nosso algorítimo já deve desenhar retas do 2 e 6 quadrante, vejamos:</p>
+
+<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/lineallocts.png" alt="Linhas de todos os octantes rasterizadas"></p>
+
+<p>Surpresa! As linhas de todos os octantes foram rasterizadas! Não há nenhum mistério, o mesmo código acima também refletiu o octante 7 no 8 e o 3 no 4, que são octantes que já resolvemos anteriormente, então agora nosso algoritmo consegue desenhar retas com qualquer inclinação! </p>
+
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/SoaresGabriel/TrabalhoICG">TrabalhoICG</a> is maintained by <a href="https://github.com/SoaresGabriel">SoaresGabriel</a>.</span>
 
