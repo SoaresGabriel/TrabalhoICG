@@ -51,6 +51,14 @@ void drawLine(Line l) {
 
 	int dx = l.pB.x - l.pA.x;
 	int dy = l.pB.y - l.pA.y;
+	int addY = 1;
+
+	// se DeltaY < 0 os valores de y e da variavel de decisão d serão decrementados
+	if(dy < 0){
+		addY = -1;
+		dy *= -1;
+	}
+
 	int d = 2 * dy - dx;
 	int addE = 2 * dy;
 	int addNE = 2 * (dy - dx);
@@ -69,7 +77,7 @@ void drawLine(Line l) {
 		} else {
 			d += addNE;
 			p->x++;
-			p->y++;
+			p->y += addY;
 		}
 
 		putPixel(pixel);
