@@ -125,6 +125,16 @@ Digamos que 'c'=(Xc, Yc) seja um pixel que já foi pintado, como estamos limitad
 E no caso do pixel 'ne':
 <img src="https://soaresgabriel.github.io/TrabalhoICG/images/DNE.png" alt="Variável de decisão NE"></p>
 
+<p>Agora eliminamos as operações pesadas que tínhamos a cada iteração, de forma que agora, precisamos apenas efetuar algumas somas para definir o proximo pixel a ser pintado, então o algoritmo de Braseham é realmente muito eficiente para rasterizar retas.</p>
+
+<h4>
+<a id="generalização-do-algoritimo-de-braseham" class="anchor" href="#generaliza%C3%A7%C3%A3o-do-algoritimo-de-braseham" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Generalização do Algoritimo de Braseham</h4>
+
+<p>Nas situações anteriores nos limitamos a retas do primeiro octante (0 a 45°), agora veremos como generalizar a técnica desenvolvida anteriormente, para o restante dos octantes. Vale ressaltar que o plano de pixels tem origem no canto superior esquerdo da tela, de forma que quando a coordenada y do pixel cresce, ele está mais para baixo, ao contrário do plano cartesiano, o qual estávamos representando anteriormente. Dessa forma temos a seguinte configuração:
+<img src="https://soaresgabriel.github.io/TrabalhoICG/images/octantesreal.png" alt="octantes"></p>
+
+<p>Para observar melhor o comportamento das retas em cada octante, a medida que vamos avançando no desenvolvimento, foi criada uma função que desenha os octantes na tela, na cor branca, sem usar a função drawLine, e outra que desenha uma reta de cada octante usando a função drawLine, onde está implementado o algoritmo de braseham. Com o algoritimo atual, temos o seguinte resultado:</p>
+
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/SoaresGabriel/TrabalhoICG">TrabalhoICG</a> is maintained by <a href="https://github.com/SoaresGabriel">SoaresGabriel</a>.</span>
 
