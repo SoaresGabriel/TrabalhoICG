@@ -109,6 +109,22 @@ Após escrevermos essas componentes já temos nosso pixel desenhado.</li>
 <img src="https://soaresgabriel.github.io/TrabalhoICG/images/firstline.png" alt="Primeira Rasterização de Linha">
 Esse é exatamente o resultado que queremos, mas observe que para cada iteração temos: mutiplição de decimais, soma de decimais, arredondamentos, e essas operações são muito caras, então essa resolução não é muito eficiente.</p>
 
+<h4>
+<a id="algoritmo-de-braseham" class="anchor" href="#algoritmo-de-braseham" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Algoritmo de Braseham</h4>
+
+<p>Uma forma de obtermos o mesmo resultado, com menos custo computacional, é utilizar o algotitmo de braseham, como veremos a seguir.</p>
+
+<p>O algoritmo de Braseham parte da equação da reta y=(Δy/Δx)<em>x+b (passando y para a direita)-&gt; (Δy/Δx)</em>x-y+b=0 (mutiplicando por Δx)-&gt; Δy<em>x-Δx</em>y+Δx<em>b=0. Dessa forma obtemos a equação de um plano <code>Φ(x,y)=αx+βy+γ=0</code>, onde α=Δy, β=-Δx</em> e γ= Δx*b. Assim, se aplicarmos um ponto na função Φ(x,y), e o resultado der maior que 0, este ponto esta acima da reta, se der 0, este ponto está na reta, e se der menos que 0, esta abaixo da reta.</p>
+
+<p>Agora vejamos a seguinte situação: 
+<img src="https://soaresgabriel.github.io/TrabalhoICG/images/linealgbras.png" alt="Equação da reta">
+Digamos que 'c'=(Xc, Yc) seja um pixel que já foi pintado, como estamos limitados a retas de 0 45°, observamos que o próximo pixel a ser pintado pode ser apenas o e=(Xc+1, Yc) ou o ne=(Xc+1, Yc+1). Para definir qual o Pixel a ser pintado, podemos calcular d=Φ(m), se o valor der positivo, significa que a reta real esta abaixo do ponto médio m, então o pixel a ser pintado deve ser o 'e' e se d der negativo, a reta está acima do ponto m, então devemos pintar o 'ne'.</p>
+
+<p>Agora observe que o valor de decisão 'd' pode ser obtido incrementando um valor ao valor anterior, para o caso onde o pixel 'e' foi escolhido, temos:
+<img src="https://soaresgabriel.github.io/TrabalhoICG/images/DE.png" alt="Variavel de decisão E">
+E no caso do pixel 'ne':
+<img src="https://soaresgabriel.github.io/TrabalhoICG/images/DNE.png" alt="Variável de decisão NE"></p>
+
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/SoaresGabriel/TrabalhoICG">TrabalhoICG</a> is maintained by <a href="https://github.com/SoaresGabriel">SoaresGabriel</a>.</span>
 
