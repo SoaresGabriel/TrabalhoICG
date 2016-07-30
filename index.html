@@ -31,7 +31,7 @@
 
 <p>Os monitores exibem as imagens através de um conjuntos de pontos, chamados de pixel, dessa forma, um monitor tem W pixels de largura e H pixels de altura, como se fosse uma matriz W por H. </p>
 
-<p>Cada pixel é representado na memória por um conjunto de 4 bytes, onde o primeiro dizemos que é o byte R(de red, vermelho), o segundo é o G(de green, verde), o terceiro é o B(de blue, azul), e o ultimo o A(alpha, controla a opacidade/transparência), com a combinação destes, podemos formar uma grande porção das cores visíveis ao olho humano.</p>
+<p>Cada pixel é representado na memória por um conjunto de 4 bytes, onde o primeiro dizemos que é o byte R(de red, vermelho), o segundo é o G(de green, verde), o terceiro é o B(de blue, azul), e o ultimo o A(alpha, controla a opacidade/transparência), com a combinação destes, podemos formar uma grande porção das cores visíveis ao olho humano. Como cada componente tem 1 byte (8 bits), ela pode assumir 256 valores diferentes que é na faixa de 0 a 255.</p>
 
 <p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/pixelscreen.png" alt="Composição de um Pixel"></p>
 
@@ -98,6 +98,16 @@ Após escrevermos essas componentes já temos nosso pixel desenhado.</li>
 <li>Uma reta ideal não tem espessura(apenas suas representações gráficas), portanto na tela, ela deve ser formada pela menor quantidade de pixels possíveis, desde que não comprometam sua representatividade. </li>
 <li>Numa situação real, uma função de desenhar linhas, seria usada com bastante frequência, então ela deve ser o mais eficiente possível (precisar de menos recurso computacional).</li>
 </ul>
+
+<p>Por enquanto nos limitaremos ao problema de rasterizar linhas de 0° a 45°, e levaremos em consideração que os pixels tem coordenadas como no plano cartesiano (eixo x positivo para direita, eixo y positivo para cima). Vejamos o seguinte exemplo:</p>
+
+<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/linepixel.png" alt="Linha em Pixels"></p>
+
+<p>Sabemos que temos que "pintar" o primeiro e último pixel, mas quais pixeis pintar no meio do caminho? Lembrando que a linha deve ser o mais fina possível, então o ideal é que em cada coluna, exatamente um pixel seja pintado, e ainda, que esse pixel pintado, seja o que a reta real passe mais próximo.</p>
+
+<p>Uma solução fácil de ser observada é começarmos a incrementar x, e para cada x nós calculamos o y através da equação da reta, e arredondaríamos esse valor para um valor inteiro, dessa forma teríamos a coordenada y da qual a reta passa mais próximo, então pintaríamos esse pixel, e teríamos o seguinte:
+<img src="https://soaresgabriel.github.io/TrabalhoICG/images/firstline.png" alt="Primeira Rasterização de Linha">
+Esse é exatamente o resultado que queremos, mas observe que para cada iteração temos: mutiplição de decimais, soma de decimais, arredondamentos, e essas operações são muito caras, então essa resolução não é muito eficiente.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/SoaresGabriel/TrabalhoICG">TrabalhoICG</a> is maintained by <a href="https://github.com/SoaresGabriel">SoaresGabriel</a>.</span>
