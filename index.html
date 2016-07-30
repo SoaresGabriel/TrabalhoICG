@@ -132,16 +132,20 @@ E no caso do pixel 'ne':
 
 <p>Nas situações anteriores nos limitamos a retas do primeiro octante (0 a 45°), agora veremos como generalizar a técnica desenvolvida anteriormente, para o restante dos octantes. </p>
 
-<p>Para observar melhor o comportamento das retas em cada octante, a medida que vamos avançando no desenvolvimento, foi criada uma função que desenha os octantes na tela, na cor branca, sem usar a função drawLine, e outra que desenha uma reta de cada octante(partindo do centro da tela) usando a função drawLine, onde está implementado o algoritmo de braseham. Com o algoritimo atual, temos o seguinte resultado:
-<img src="https://soaresgabriel.github.io/TrabalhoICG/images/lineoct1.png" alt="Rasterizada linha do octante 1">
-A reta do primeiro octante foi desenhada, mas as dos demais ou foram desenhadas sobre os eixos dos octantes ou nem chegaram a ser desenhadas.</p>
+<p>Para observar melhor o comportamento das retas em cada octante, a medida que vamos avançando no desenvolvimento, foi criada uma função que desenha os octantes na tela, na cor branca, sem usar a função drawLine, e outra que desenha uma reta de cada octante(partindo do centro da tela) usando a função drawLine, onde está implementado o algoritmo de braseham. Com o algoritimo atual, temos o seguinte resultado:</p>
+
+<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/lineoct1.png" alt="Rasterizada linha do octante 1"></p>
+
+<p>A reta do primeiro octante foi desenhada, mas as dos demais ou foram desenhadas sobre os eixos dos octantes ou nem chegaram a ser desenhadas.</p>
 
 <p>Vale ressaltar que o plano de pixels tem origem no canto superior esquerdo da tela, de forma que quando a coordenada y do pixel cresce, ele está mais para baixo, ao contrário do plano cartesiano, o qual estávamos representando anteriormente. Dessa forma temos a seguinte configuração:
 <img src="https://soaresgabriel.github.io/TrabalhoICG/images/octantesreal.png" alt="octantes"></p>
 
-<p>O algorítimo já está funcionando no 1° octante, agora observe que um segmento de reta cujo coeficiente angular seja do 5° octante, pode ser "transformado" em um segmento de reta do 1° octante (onde o algoritmo funciona) apenas permutando os pontos de inicio e fim da reta, temos essa mesma relação entre os octantes 2,7,8(onde Δx&gt;0) e os octantes 6,3,4(onde Δx&lt;0) respectivamente. Então façamos o seguinte `se Δx&lt;0 -&gt; permuta as extremidades do segmento de reta`, assim, as retas do 3° octante será transformada para o 7°, do 4° para o 8°, do 5° para o 1° (aqui o algoritmo já deve funcionar), então precisamos resolver agora para os octantes 2,7,8, que o resto virá em função desses. Vejamos como fica nossa tela com esta implementação:
-<img src="https://soaresgabriel.github.io/TrabalhoICG/images/lineoct15.png" alt="Rasterizada linhas dos octantes 1 e 5">
-Como esperado, a reta do 5° octante foi desenhada, não precisa se preocupar com essas outras retas estranhas que apareceram, elas são as retas que devem ser desenhadas nos outros octantes quando o algoritmo estiver completo.</p>
+<p>O algorítimo já está funcionando no 1° octante, agora observe que um segmento de reta cujo coeficiente angular seja do 5° octante, pode ser "transformado" em um segmento de reta do 1° octante (onde o algoritmo funciona) apenas permutando os pontos de inicio e fim da reta, temos essa mesma relação entre os octantes 2,7,8(onde Δx&gt;0) e os octantes 6,3,4(onde Δx&lt;0) respectivamente. Então façamos o seguinte `se Δx&lt;0 -&gt; permuta as extremidades do segmento de reta`, assim, as retas do 3° octante será transformada para o 7°, do 4° para o 8°, do 5° para o 1° (aqui o algoritmo já deve funcionar), então precisamos resolver agora para os octantes 2,7,8, que o resto virá em função desses. Vejamos como fica nossa tela com esta implementação:</p>
+
+<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/lineoct15.png" alt="Rasterizada linhas dos octantes 1 e 5"></p>
+
+<p>Como esperado, a reta do 5° octante foi desenhada, não precisa se preocupar com essas outras retas estranhas que apareceram, elas são as retas que devem ser desenhadas nos outros octantes quando o algoritmo estiver completo.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/SoaresGabriel/TrabalhoICG">TrabalhoICG</a> is maintained by <a href="https://github.com/SoaresGabriel">SoaresGabriel</a>.</span>
