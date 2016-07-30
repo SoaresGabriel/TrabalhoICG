@@ -78,11 +78,11 @@
 <h2>
 <a id="rasterização-de-pontos---putpixel" class="anchor" href="#rasteriza%C3%A7%C3%A3o-de-pontos---putpixel" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rasterização de Pontos - putPixel</h2>
 
-<p>Já vimos como os pixels são armazenados na memória e também vimos como calcular o endereço de memoria de um pixel. Através framework disponibilizado pelo professor temos o ponteiro FBptr que aponta para o endereço do primeiro byte do ColorBuffer(simulado). Com tudo isso em mãos, fica fácil implementar o putPixel: Calculamos o endereço do pixel com a expressão vista anteriormente, <code>e = x*4 + y*W*4</code>, e adicionamos ao ponteiro FBptr, para obter a posição do primeiro byte do Pixel, e como o pixel é composto por 4bytes, uma para cada componente, ficamos com (usarei notação de array por conveniência):</p>
+<p>Já sabemos como os pixels são armazenados na memória, também vimos como calcular o endereço de memoria de um pixel. No framework disponibilizado pelo professor temos o ponteiro FBptr que aponta para o endereço do primeiro byte do ColorBuffer(simulado). Com tudo isso em mãos, fica fácil implementar o putPixel: Calculamos o endereço do pixel com a expressão vista anteriormente, <code>e = x*4 + y*W*4</code>, e adicionamos ao ponteiro FBptr, para obter a posição do primeiro byte do pixel, e como ele é composto por 4 bytes, uma para cada componente, ficamos com (usaremos notação de array por conveniência):</p>
 
 <ul>
-<li>Fbptr[e+0] - Aqui escrevemos a componente R da cor do pixel</li>
-<li>Fbptr[e+1] - Da mesma forma, escrevemos aqui a componente G</li>
+<li>Fbptr[e+0] - Aqui escrevemos o valor da componente R da cor do pixel</li>
+<li>Fbptr[e+1] - Da mesma forma, escrevemos aqui o valor a componente G</li>
 <li>Fbptr[e+2] - Aqui vai a componente B</li>
 <li>Fbptr[e+3] - E por último o A
 Após escrevermos essas componentes já temos nosso pixel desenhado.</li>
@@ -91,9 +91,10 @@ Após escrevermos essas componentes já temos nosso pixel desenhado.</li>
 <h2>
 <a id="rasterização-de-linhas---drawline" class="anchor" href="#rasteriza%C3%A7%C3%A3o-de-linhas---drawline" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rasterização de Linhas - drawLine</h2>
 
-<p>Já abordamos um dos problemas de rasterizar uma Reta em uma tela que é formada por Pixel, agora veremos como podemos fazer essa representação discreta de uma reta contínua. Mas antes precisamos ter mais algumas coisas em mente:</p>
+<p>Agora desenvolveremos um método para desenhar uma linha na tela, precisamos ter algumas coisas em mente:</p>
 
 <ul>
+<li>Uma reta é um objeto continuo, então o que vamos criar é uma aproximação de uma reta em um espaço discreto, formado por pixels.</li>
 <li>Uma reta ideal não tem espessura(apenas suas representações gráficas), portanto na tela, ela deve ser formada pela menor quantidade de pixels possíveis, desde que não comprometam sua representatividade. </li>
 <li>Numa situação real, uma função de desenhar linhas, seria usada com bastante frequência, então ela deve ser o mais eficiente possível (precisar de menos recurso computacional).</li>
 </ul>
