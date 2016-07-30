@@ -42,6 +42,25 @@ void putPixel(Pixel p) {
 
 void drawLine(Line l) {
 
+	// Se |DeltaY| < |DeltaX| -> permuta as coordenadas  de cada ponto
+	int permuta = 0;
+	if (abs(l.pB.y - l.pA.y) > abs(l.pB.x - l.pA.x)) {
+		int aux;
+
+		// permuta coordenadas do ponto de inicio da reta
+		aux = l.pA.x;
+		l.pA.x = l.pA.y;
+		l.pA.y = aux;
+
+		// permuta coordenadas do ponto de fim da reta
+		aux = l.pB.x;
+		l.pB.x = l.pB.y;
+		l.pB.y = aux;
+
+		permuta = 1; // variavel para saber se na hora de desenhar, precisa permutar
+
+	}
+
 	// se DeltaX < 0 inverte os pontos de inicio e fim da linha
 	if (l.pB.x < l.pA.x) {
 		Pixel a = l.pA;
@@ -54,7 +73,7 @@ void drawLine(Line l) {
 	int addY = 1;
 
 	// se DeltaY < 0 os valores de y e da variavel de decisão d serão decrementados
-	if(dy < 0){
+	if (dy < 0) {
 		addY = -1;
 		dy *= -1;
 	}
@@ -80,7 +99,14 @@ void drawLine(Line l) {
 			p->y += addY;
 		}
 
-		putPixel(pixel);
+		//se as coordenadas foram permutadas, aqui elas permutadas novamente
+		if (permuta) {
+			Pixel permutado = { pixel.y, pixel.x, pixel.color };
+			putPixel(permutado);
+		} else {
+
+			putPixel(pixel);
+		}
 	}
 }
 
