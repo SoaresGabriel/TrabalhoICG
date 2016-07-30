@@ -41,6 +41,14 @@ void putPixel(Pixel p) {
 }
 
 void drawLine(Line l) {
+
+	// se DeltaX < 0 inverte os pontos de inicio e fim da linha
+	if (l.pB.x < l.pA.x) {
+		Pixel a = l.pA;
+		l.pA = l.pB;
+		l.pB = a;
+	}
+
 	int dx = l.pB.x - l.pA.x;
 	int dy = l.pB.y - l.pA.y;
 	int d = 2 * dy - dx;
@@ -79,7 +87,7 @@ void drawOctants() {
 		putPixel(p);
 
 		//desenha eixo y
-		p.x = IMAGE_WIDTH/2;
+		p.x = IMAGE_WIDTH / 2;
 		p.y = i;
 		putPixel(p);
 
@@ -122,21 +130,21 @@ void drawOctantLines() {
 	drawLine(linha3);
 
 	//desenha linha no quarto octante
-	Color cor4 = { 255, 228, 196, 255 };
+	Color cor4 = { 0, 255, 0, 255 };
 	*corCentro = cor4;
 	Pixel final4 = { 0, IMAGE_HEIGHT * 3 / 4, cor4 };
 	Line linha4 = { centro, final4 };
 	drawLine(linha4);
 
 	//desenha linha no quinto octante
-	Color cor5 = { 255, 222, 173, 255 };
+	Color cor5 = { 216, 191, 216, 255 };
 	*corCentro = cor5;
 	Pixel final5 = { 0, IMAGE_HEIGHT / 4, cor5 };
 	Line linha5 = { centro, final5 };
 	drawLine(linha5);
 
 	//desenha linha no sexto octante
-	Color cor6 = { 224, 255, 255, 255 };
+	Color cor6 = { 0, 0, 255, 255 };
 	*corCentro = cor6;
 	Pixel final6 = { IMAGE_WIDTH / 4, 0, cor6 };
 	Line linha6 = { centro, final6 };
