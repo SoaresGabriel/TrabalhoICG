@@ -147,6 +147,12 @@ E no caso do pixel 'ne':
 
 <p>Como esperado, a reta do 5° octante foi desenhada, não precisa se preocupar com essas outras retas estranhas que apareceram, elas são as retas que devem ser desenhadas nos outros octantes quando o algoritmo estiver completo.</p>
 
+<p>Para o 1° octante, y aumenta a medida que x aumenta, ou seja, para cada ponto (a,b) pintado, o próximo a ser pintado é o ponto (a+1, b) ou (a+1, b+1), para o oitavo octante, podemos usar a mesma lógica, mas pra ele escolheremos entre os pontos (a+1,b) ou (a+1,b-1), para isso basta que decrementemos a variável de decisão 'd' a cada iteração, ao invés de incrementa-la, e se d for positivo, pintamos (a+1,b), se negativo pintamos (a+1, b-1). Vejamos o resultado ao implementar essa lógica:</p>
+
+<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/lineoct1358.png" alt="Rasterizada linhas nos octantes 1,3,5 e 8"></p>
+
+<p>A reta foi rasterizada corretamente, e como previsto anteriormente, a reta do 4° octante também foi desenhada.</p>
+
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/SoaresGabriel/TrabalhoICG">TrabalhoICG</a> is maintained by <a href="https://github.com/SoaresGabriel">SoaresGabriel</a>.</span>
 
