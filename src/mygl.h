@@ -1,6 +1,7 @@
 #ifndef _MYGL_H_
 #define _MYGL_H_
 
+#include "math.h"
 #include "definitions.h"
 
 typedef struct Color {
@@ -84,12 +85,34 @@ void drawLine(Line l) {
 	int x = l.pA.x;
 	int y = l.pA.y;
 
-	Pixel pixel = { x, y, l.pB.color };
+	Pixel pixel = { x, y, l.pA.color };
 	Pixel *p = &pixel;
 
 	putPixel(pixel);
 
+	//Algoritimo para Interpolação de Cor
+	float lineSize = dx;
+	float addR = (l.pB.color.R - l.pA.color.R) / lineSize;
+	float addG = (l.pB.color.G - l.pA.color.G) / lineSize;
+	float addB = (l.pB.color.B - l.pA.color.B) / lineSize;
+	float addA = (l.pB.color.A - l.pA.color.A) / lineSize;
+	float R = l.pA.color.R;
+	float G = l.pA.color.G;
+	float B = l.pA.color.B;
+	float A = l.pA.color.A;
+
 	while (pixel.x < l.pB.x) {
+
+		//Definição das cores para interpolação
+		R += addR;
+		G += addG;
+		B += addB;
+		A += addA;
+		p->color.R = R;
+		p->color.G = G;
+		p->color.B = B;
+		p->color.A = A;
+
 		if (d <= 0) {
 			d += addE;
 			p->x++;
@@ -139,61 +162,52 @@ void drawOctants() {
 }
 
 void drawOctantLines() {
-	Pixel centro = { IMAGE_WIDTH / 2, IMAGE_HEIGHT / 2, { 255, 255, 255, 255 } };
-	Color *corCentro = &(centro.color);
+	Pixel centro = { IMAGE_WIDTH / 2, IMAGE_HEIGHT / 2, { 255,99,71, 255 } };
 
 	//desenha linha no primeiro octante
 	Color cor1 = { 255, 20, 147, 255 };
-	*corCentro = cor1;
 	Pixel final1 = { IMAGE_WIDTH - 1, IMAGE_HEIGHT * 3 / 4, cor1 };
 	Line linha1 = { centro, final1 };
 	drawLine(linha1);
 
 	//desenha linha no segundo octante
 	Color cor2 = { 255, 255, 0, 255 };
-	*corCentro = cor2;
 	Pixel final2 = { IMAGE_WIDTH * 3 / 4, IMAGE_HEIGHT - 1, cor2 };
 	Line linha2 = { centro, final2 };
 	drawLine(linha2);
 
 	//desenha linha no terceiro octante
 	Color cor3 = { 152, 251, 152, 255 };
-	*corCentro = cor3;
 	Pixel final3 = { IMAGE_WIDTH / 4, IMAGE_HEIGHT - 1, cor3 };
 	Line linha3 = { centro, final3 };
 	drawLine(linha3);
 
 	//desenha linha no quarto octante
 	Color cor4 = { 0, 255, 0, 255 };
-	*corCentro = cor4;
 	Pixel final4 = { 0, IMAGE_HEIGHT * 3 / 4, cor4 };
 	Line linha4 = { centro, final4 };
 	drawLine(linha4);
 
 	//desenha linha no quinto octante
 	Color cor5 = { 216, 191, 216, 255 };
-	*corCentro = cor5;
 	Pixel final5 = { 0, IMAGE_HEIGHT / 4, cor5 };
 	Line linha5 = { centro, final5 };
 	drawLine(linha5);
 
 	//desenha linha no sexto octante
 	Color cor6 = { 0, 0, 255, 255 };
-	*corCentro = cor6;
 	Pixel final6 = { IMAGE_WIDTH / 4, 0, cor6 };
 	Line linha6 = { centro, final6 };
 	drawLine(linha6);
 
 	//desenha linha no sétimo octante
 	Color cor7 = { 173, 255, 47, 255 };
-	*corCentro = cor7;
 	Pixel final7 = { IMAGE_WIDTH * 3 / 4, 0, cor7 };
 	Line linha7 = { centro, final7 };
 	drawLine(linha7);
 
 	//desenha linha no oitavo octante
 	Color cor8 = { 255, 69, 0, 255 };
-	*corCentro = cor8;
 	Pixel final8 = { IMAGE_WIDTH - 1, IMAGE_HEIGHT / 4, cor8 };
 	Line linha8 = { centro, final8 };
 	drawLine(linha8);
