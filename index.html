@@ -159,6 +159,18 @@ E no caso do pixel 'ne':
 
 <p>Surpresa! As linhas de todos os octantes foram rasterizadas! Não há nenhum mistério, o mesmo código acima também refletiu o octante 7 no 8 e o 3 no 4, que são octantes que já resolvemos anteriormente, então agora nosso algoritmo consegue desenhar retas com qualquer inclinação! </p>
 
+<h2>
+<a id="interpolação-linear-de-cores" class="anchor" href="#interpola%C3%A7%C3%A3o-linear-de-cores" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Interpolação Linear de Cores</h2>
+
+<p>Agora queremos que a reta vá mudando suavemente da cor do pixel A até a cor do pixel B, esse processo é chamado interpolação linear de cores.</p>
+
+<p>Sabemos que o para desenhar a reta completa, o algoritmo itera Δx vezes, e em cada vez, ele desenha o próximo pixel da reta, ou seja, a reta é formada por Δx pixels. A ideia é que cada componente da cor (RGBA) vá aumentando (ou diminuindo) gradativamente ao longo da reta, de forma que no último pixel, ela tenha exato valor da cor da sua extremidade. Obs: mesmo nas situações em que Δy é maior, para o nosso algoritimo ele continua executando Δx vezes, pois ele faz uma troca das coordenadas.</p>
+
+<p>Vamos exemplificar para o componente R (vermelho) da cor. Digamos que uma reta começa no ponto A, onde o componente vermelho é Ra=100, e termine no ponto B, onde o componente vermelho é de Rb=200, se Δx = 10, o componente R deve ser acrescentado em 10 para cada pixel, de que a reta sai de A com R=100 e chega em B com R=200.</p>
+
+<p>No caso mais geral, podemos definir esse valor que deve ser adicionado por <code>addR=ΔR/Δx</code>, que pode ser interpretado como a taxa de variação de R em relação a x, ou o valor que R para cada vez que x aumenta em 1. Então o valor de R para cada pixel pode ser dado através da relação de recorrência <code>R=Ra+addR</code>, onde Ra agora simboliza o componente R do pixel anterior. Frequentemente esse valor vai dar um número decimal, e os componentes de cores são representados computacionalmente por números inteiros, então neste caso fazemos um trucamento, pois o arredondamento é mais pesado, e a diferença é tão pouca que não se justifica. Agora aplicamos o mesmo processo para as componentes G,B e A, e então já devemos ter nossa interpolação funcionando, vejamos alguns resultados:
+<img src="https://soaresgabriel.github.io/TrabalhoICG/images/intepolation.png" alt="Retas com cores interpoladas"></p>
+
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/SoaresGabriel/TrabalhoICG">TrabalhoICG</a> is maintained by <a href="https://github.com/SoaresGabriel">SoaresGabriel</a>.</span>
 
