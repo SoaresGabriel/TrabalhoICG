@@ -90,13 +90,12 @@ void drawLine(Line l) {
 
 	putPixel(pixel);
 
-	//Algoritimo para Interpolação de Cor
+	//Calculos para Interpolação de Cor
 	float lineSize = dx;
 	float addR = (l.pB.color.R - l.pA.color.R) / lineSize;
 	float addG = (l.pB.color.G - l.pA.color.G) / lineSize;
 	float addB = (l.pB.color.B - l.pA.color.B) / lineSize;
 	float addA = (l.pB.color.A - l.pA.color.A) / lineSize;
-
 	float R = l.pA.color.R;
 	float G = l.pA.color.G;
 	float B = l.pA.color.B;
@@ -104,11 +103,11 @@ void drawLine(Line l) {
 
 	while (pixel.x < l.pB.x) {
 
+		// Definição das cores para interpolação
 		R += addR;
 		G += addG;
 		B += addB;
 		A += addA;
-
 		p->color.R = R;
 		p->color.G = G;
 		p->color.B = B;
