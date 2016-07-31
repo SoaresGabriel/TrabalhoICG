@@ -2,8 +2,10 @@
 
 //-----------------------------------------------------------------------------
 void MyGlDraw(void) {
-	drawOctants();
-	drawOctantLines();
+	//drawOctants();
+	//drawOctantLines();
+
+	drawTriangles();
 
 }
 
