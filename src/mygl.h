@@ -88,7 +88,13 @@ void drawLine(Line l) {
 	Pixel pixel = { x, y, l.pA.color };
 	Pixel *p = &pixel;
 
-	putPixel(pixel);
+	//desenha o primeiro pixel
+	if (permuta) {
+		Pixel permutado = { pixel.y, pixel.x, pixel.color };
+		putPixel(permutado);
+	} else {
+		putPixel(pixel);
+	}
 
 	//Calculos para Interpolação de Cor
 	float lineSize = dx;
@@ -130,7 +136,54 @@ void drawLine(Line l) {
 
 			putPixel(pixel);
 		}
+
 	}
+
+}
+
+void drawTriangle(Triangle t) {
+
+	Line line1 = { t.vA, t.vB };
+	Line line2 = { t.vB, t.vC };
+	Line line3 = { t.vC, t.vA };
+
+	drawLine(line1);
+	drawLine(line2);
+	drawLine(line3);
+
+}
+
+void drawTriangles() {
+	Pixel p1 = { 26, 235, { 100, 144, 178, 88 } };
+	Pixel p2 = { 247, 233, { 65, 5, 197, 255 } };
+	Pixel p3 = { 120, 58, { 53, 138, 73, 0} };
+	Triangle t1 = { p1, p2, p3 };
+	drawTriangle(t1);
+
+	Pixel p4 = { 29, 308, { 248, 121, 126, 220 } };
+	Pixel p5 = { 239, 392, { 7, 151, 194, 36 } };
+	Pixel p6 = { 45, 458, { 159, 137, 97, 140 } };
+	Triangle t2 = { p4, p5, p6 };
+	drawTriangle(t2);
+
+	Pixel p7 = { 369, 456, { 125, 74, 62, 255 } };
+	Pixel p8 = { 500, 330, { 192, 247, 224, 239 } };
+	Pixel p9 = { 352, 300, { 103, 234, 29, 94 } };
+	Triangle t3 = { p7, p8, p9 };
+	drawTriangle(t3);
+
+	Pixel p10 = { 332, 57, { 228, 225, 223, 162 } };
+	Pixel p11 = { 445, 292, { 137, 13, 157, 220 } };
+	Pixel p12 = { 397, 68, { 105, 49, 76, 204 } };
+	Triangle t4 = { p10, p11, p12 };
+	drawTriangle(t4);
+
+	Pixel p13 = { 200, 100, { 193, 175, 255, 231 } };
+	Pixel p14 = { 422, 294, { 118, 84, 223, 4 } };
+	Pixel p15 = { 134, 13, { 14, 227, 61, 156 } };
+	Triangle t5 = { p13, p14, p15 };
+	drawTriangle(t5);
+
 }
 
 void drawOctants() {
@@ -162,7 +215,7 @@ void drawOctants() {
 }
 
 void drawOctantLines() {
-	Pixel centro = { IMAGE_WIDTH / 2, IMAGE_HEIGHT / 2, { 255,99,71, 255 } };
+	Pixel centro = { IMAGE_WIDTH / 2, IMAGE_HEIGHT / 2, { 255, 99, 71, 255 } };
 
 	//desenha linha no primeiro octante
 	Color cor1 = { 255, 20, 147, 255 };
