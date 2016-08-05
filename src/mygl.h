@@ -133,12 +133,9 @@ void drawLine(Line l) {
 			Pixel permutado = { pixel.y, pixel.x, pixel.color };
 			putPixel(permutado);
 		} else {
-
 			putPixel(pixel);
 		}
-
 	}
-
 }
 
 void drawTriangle(Triangle t) {
@@ -153,36 +150,146 @@ void drawTriangle(Triangle t) {
 
 }
 
+/*Para uso do drawFilledTriangle
+ *
+ * Essa função é uma variação do algoritmo de braseham, ela faz os mesmos calculos para determinar
+ * o proximo pixel de uma reta entre os pontos A e B, mas ao inves de desenhar o pixel, ela chama
+ * o drawLine para desenhar uma reta de C para cada pixel da reta AB
+ *
+ */
+void drawAllLines(Pixel p1, Pixel p2, Pixel p3) {
+
+	// Se |DeltaY| < |DeltaX| -> permuta as coordenadas  de cada ponto
+	int permuta = 0;
+	if (abs(p2.y - p1.y) > abs(p2.x - p1.x)) {
+		int aux;
+
+		// permuta coordenadas do ponto de inicio da reta
+		aux = p1.x;
+		p1.x = p1.y;
+		p1.y = aux;
+
+		// permuta coordenadas do ponto de fim da reta
+		aux = p2.x;
+		p2.x = p2.y;
+		p2.y = aux;
+
+		permuta = 1; // variavel para saber se na hora de desenhar, precisa permutar
+
+	}
+
+	// se DeltaX < 0 inverte os pontos de inicio e fim da linha
+	if (p2.x < p1.x) {
+		Pixel a = p1;
+		p1 = p2;
+		p2 = a;
+	}
+
+	int dx = p2.x - p1.x;
+	int dy = p2.y - p1.y;
+	int addY = 1;
+
+	// se DeltaY < 0 os valores de y e da variavel de decisão d serão decrementados
+	if (dy < 0) {
+		addY = -1;
+		dy *= -1;
+	}
+
+	int d = 2 * dy - dx;
+	int addE = 2 * dy;
+	int addNE = 2 * (dy - dx);
+	int x = p1.x;
+	int y = p1.y;
+
+	Pixel pixel = { x, y, p1.color };
+	Pixel *p = &pixel;
+
+	//Calculos para Interpolação de Cor
+	float lineSize = dx;
+	float addR = (p2.color.R - p1.color.R) / lineSize;
+	float addG = (p2.color.G - p1.color.G) / lineSize;
+	float addB = (p2.color.B - p1.color.B) / lineSize;
+	float addA = (p2.color.A - p1.color.A) / lineSize;
+	float R = p1.color.R;
+	float G = p1.color.G;
+	float B = p1.color.B;
+	float A = p1.color.A;
+
+	while (pixel.x < p2.x) {
+
+		// Definição das cores para interpolação
+		R += addR;
+		G += addG;
+		B += addB;
+		A += addA;
+		p->color.R = R;
+		p->color.G = G;
+		p->color.B = B;
+		p->color.A = A;
+
+		if (d <= 0) {
+			d += addE;
+			p->x++;
+		} else {
+			d += addNE;
+			p->x++;
+			p->y += addY;
+		}
+
+		//se as coordenadas foram permutadas, aqui elas permutadas novamente
+		if (permuta) {
+			Pixel permutado = { pixel.y, pixel.x, pixel.color };
+			Line line = { p3, permutado };
+			drawLine(line);
+		} else {
+
+			Line line = { p3, pixel };
+			drawLine(line);
+		}
+
+	}
+
+}
+
+void drawFilledTriangle(Triangle t) {
+	// Para cada pixel P da reta entre os vértices A e B, desenha uma reta que vai de C até P
+	drawAllLines(t.vA, t.vB, t.vC);
+	// Para cada pixel P da reta entre os vértices A e C, desenha uma reta que vai de B até P
+	drawAllLines(t.vA, t.vC, t.vB);
+	// Para cada pixel P da reta entre os vértices B e C, desenha uma reta que vai de A até P
+	drawAllLines(t.vB, t.vC, t.vA);
+}
+
 void drawTriangles() {
-	Pixel p1 = { 26, 235, { 100, 144, 178, 88 } };
-	Pixel p2 = { 247, 233, { 65, 5, 197, 255 } };
-	Pixel p3 = { 120, 58, { 53, 138, 73, 0 } };
+	Pixel p1 = { 26, 235, { 255, 0, 0, 255 } };
+	Pixel p2 = { 247, 233, { 0, 255, 0, 255 } };
+	Pixel p3 = { 120, 58, { 0, 0, 255, 255 } };
 	Triangle t1 = { p1, p2, p3 };
-	drawTriangle(t1);
+	drawFilledTriangle(t1);
 
 	Pixel p4 = { 29, 308, { 248, 121, 126, 220 } };
 	Pixel p5 = { 239, 392, { 7, 151, 194, 36 } };
 	Pixel p6 = { 45, 458, { 159, 137, 97, 140 } };
 	Triangle t2 = { p4, p5, p6 };
-	drawTriangle(t2);
+	drawFilledTriangle(t2);
 
 	Pixel p7 = { 369, 456, { 125, 74, 62, 255 } };
 	Pixel p8 = { 500, 330, { 192, 247, 224, 239 } };
 	Pixel p9 = { 352, 300, { 103, 234, 29, 94 } };
 	Triangle t3 = { p7, p8, p9 };
-	drawTriangle(t3);
+	drawFilledTriangle(t3);
 
 	Pixel p10 = { 332, 57, { 228, 225, 223, 162 } };
 	Pixel p11 = { 445, 292, { 137, 13, 157, 220 } };
 	Pixel p12 = { 397, 68, { 105, 49, 76, 204 } };
 	Triangle t4 = { p10, p11, p12 };
-	drawTriangle(t4);
+	drawFilledTriangle(t4);
 
 	Pixel p13 = { 200, 100, { 193, 175, 255, 231 } };
 	Pixel p14 = { 422, 294, { 118, 84, 223, 4 } };
 	Pixel p15 = { 134, 13, { 14, 227, 61, 156 } };
 	Triangle t5 = { p13, p14, p15 };
-	drawTriangle(t5);
+	drawFilledTriangle(t5);
 
 }
 
