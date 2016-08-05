@@ -179,7 +179,7 @@ Conseguimos o resultado que queriamos, os pixels do inicio e do final da reta, t
 
 <p>Agora que temos o algoritimo que rasteriza linhas, aqui não resta muito o que fazer: nosso algoritimo deve receber os vértices A, B e C do triângulo, e rasterizar 3 linhas entre esses vértices: de A para B, de B para C e de C para A, pronto! já temos nosso triângulo. Observe alguns resultados:</p>
 
-<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/rasttriangles.png" alt="Triangulos rasterizados"> </p>
+<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/rasttriangles.png" alt="Triângulos rasterizados"> </p>
 
 <h1>
 <a id="extra" class="anchor" href="#extra" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Extra</h1>
@@ -188,13 +188,21 @@ Conseguimos o resultado que queriamos, os pixels do inicio e do final da reta, t
 <a id="triangulo-preenchido---drawfilledtriangle" class="anchor" href="#triangulo-preenchido---drawfilledtriangle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Triangulo Preenchido - drawFilledTriangle</h3>
 
 <p>Para desenhar um triângulo preenchido, podemos usar uma variação do algoritmo que desenvolvemos anteriormente para rasterização de linha, da seguinte forma: 
-Digamos que temos um triângulo com vértices nos pontos A, B e C quaisquer, pegamos por exemplo a reta AB, e usamos o algoritmo para determinar a cor(usando interpolação) e quais pixeis devem ser pintados para formar essa reta, mas ao invés de pintarmos esse pixel, desenhamos uma reta do ponto C até cada pixel dessa reta. O resultado deve ser nosso triangulo preenchido, e devidamente interpolado, vejamos:
-<img src="https://soaresgabriel.github.io/TrabalhoICG/images/filledtriangles1.png" alt="Triangulos preenchidos com erro"></p>
+Digamos que temos um triângulo com vértices nos pontos A, B e C quaisquer, pegamos por exemplo a reta AB, e usamos o algoritmo para determinar a cor(usando interpolação) e quais pixeis devem ser pintados para formar essa reta, mas ao invés de pintarmos esse pixel, desenhamos uma reta do ponto C até cada pixel dessa reta. O resultado deve ser nosso triangulo preenchido, e devidamente interpolado, vejamos:</p>
+
+<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/filledtriangles1.png" alt="Triangulos preenchidos com erro"></p>
 
 <p>Temos quase o resultado que queremos, mas tem alguns pontos pretos nos triângulos, isso acontece por que ao desenhar as retas, alguns pixels acabam não sendo pintados. Para tirar esse erro, podemos fazer o mesmo processo que fizemos da reta AB, para as outras duas retas do triângulo, ou seja, desenhamos retas que vão de A, para cada ponto da reta BC e de B para cada ponto da reta AC.
 <img src="https://soaresgabriel.github.io/TrabalhoICG/images/filledtriangles2.png" alt="Triangulos preenchidos com erro"></p>
 
 <p>Agora temos os triângulos preenchidos, sem os pontos pretos e devidamente interpolado.</p>
+
+<h3>
+<a id="desenhar-qualquer-polígono---drawpolygon" class="anchor" href="#desenhar-qualquer-pol%C3%ADgono---drawpolygon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Desenhar qualquer Polígono - drawPolygon</h3>
+
+<p>Com o que já desenvolvemos, sem muita dificuldade podemos criar uma função para desenhar qualquer polígono. Essa função recebe dois parâmetros: Um conjunto(array) ordenado de pixels que são as arestas do polígono, e  a quantidade desses vértices, a partir dai basta que desenhemos uma linha para cada dois Pixels adjacentes desse conjunto, e também do ultimo pixel ao primeiro.</p>
+
+<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/drawPolygon.png" alt="Poligono"></p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/SoaresGabriel/TrabalhoICG">TrabalhoICG</a> is maintained by <a href="https://github.com/SoaresGabriel">SoaresGabriel</a>.</span>
