@@ -293,6 +293,50 @@ void drawTriangles() {
 
 }
 
+void drawPolygon(Pixel vertices[], int qtVert) {
+	int i;
+	for (i = 0; i < qtVert - 1; i++) {
+		Line l = { vertices[i], vertices[i + 1] };
+		drawLine(l);
+	}
+	Line l = { vertices[qtVert - 1], vertices[0] };
+	drawLine(l);
+}
+
+void drawFilledPolygon(Pixel vertices[], int qtVert, Color color) {
+
+	int i, j, k;
+
+	for (i = 0; i < qtVert; i++) {
+		vertices[i].color = color;
+	}
+
+	for (i = 0; i < qtVert; i++) {
+		for (j = i + 1; j < qtVert; j++) {
+			for (k = j + 1; k < qtVert; k++) {
+				Triangle t = { vertices[i], vertices[j], vertices[k] };
+				drawFilledTriangle(t);
+			}
+
+		}
+	}
+
+}
+
+void showPolygons() {
+
+	Pixel p1 = { 97, 64, { 255, 0, 0, 255 } };
+	Pixel p2 = { 204, 63, { 0, 255, 0, 255 } };
+	Pixel p3 = { 270, 140, { 0, 0, 255, 255 } };
+
+	Pixel p4 = { 252, 240, { 248, 121, 126, 220 } };
+	Pixel p5 = { 137, 259, { 7, 151, 194, 36 } };
+	Pixel p6 = { 47, 190, { 159, 137, 97, 140 } };
+
+	Pixel v[] = { p1, p2, p3, p4, p5, p6 };
+	Color white = { 255, 255, 255, 255 };
+	drawFilledPolygon(v, 6, white);
+}
 void drawOctants() {
 	Color branco = { 255, 255, 255, 255 };
 	int i;

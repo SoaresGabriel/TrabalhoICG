@@ -5,7 +5,9 @@ void MyGlDraw(void) {
 	//drawOctants();
 	//drawOctantLines();
 
-	drawTriangles();
+	//drawTriangles();
+
+	showPolygons();
 
 }
 
