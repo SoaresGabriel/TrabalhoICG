@@ -110,11 +110,11 @@ Após escrevermos essas componentes já temos nosso pixel desenhado.</li>
 Esse é exatamente o resultado que queremos, mas observe que para cada iteração temos: mutiplição de decimais, soma de decimais, arredondamentos, e essas operações são muito caras, então essa resolução não é muito eficiente.</p>
 
 <h4>
-<a id="algoritmo-de-braseham" class="anchor" href="#algoritmo-de-braseham" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Algoritmo de Braseham</h4>
+<a id="algoritmo-de-bresenham" class="anchor" href="#algoritmo-de-bresenham" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Algoritmo de Bresenham</h4>
 
-<p>Uma forma de obtermos o mesmo resultado, com menos custo computacional, é utilizar o algotitmo de braseham, como veremos a seguir.</p>
+<p>Uma forma de obtermos o mesmo resultado, com menos custo computacional, é utilizar o algotitmo de Bresenham, como veremos a seguir.</p>
 
-<p>O algoritmo de Braseham parte da equação da reta y=(Δy/Δx)<em>x+b (passando y para a direita)-&gt; (Δy/Δx)</em>x-y+b=0 (mutiplicando por Δx)-&gt; Δy<em>x-Δx</em>y+Δx<em>b=0. Dessa forma obtemos a equação de um plano <code>Φ(x,y)=αx+βy+γ=0</code>, onde α=Δy, β=-Δx</em> e γ= Δx*b. Assim, se aplicarmos um ponto na função Φ(x,y), e o resultado der maior que 0, este ponto esta acima da reta, se der 0, este ponto está na reta, e se der menos que 0, esta abaixo da reta.</p>
+<p>O algoritmo de Bresenham parte da equação da reta y=(Δy/Δx)<em>x+b (passando y para a direita)-&gt; (Δy/Δx)</em>x-y+b=0 (mutiplicando por Δx)-&gt; Δy<em>x-Δx</em>y+Δx<em>b=0. Dessa forma obtemos a equação de um plano <code>Φ(x,y)=αx+βy+γ=0</code>, onde α=Δy, β=-Δx</em> e γ= Δx*b. Assim, se aplicarmos um ponto na função Φ(x,y), e o resultado der maior que 0, este ponto esta acima da reta, se der 0, este ponto está na reta, e se der menos que 0, esta abaixo da reta.</p>
 
 <p>Agora vejamos a seguinte situação: 
 <img src="https://soaresgabriel.github.io/TrabalhoICG/images/linealgbras.png" alt="Equação da reta">
@@ -125,14 +125,14 @@ Digamos que 'c'=(Xc, Yc) seja um pixel que já foi pintado, como estamos limitad
 E no caso do pixel 'ne':
 <img src="https://soaresgabriel.github.io/TrabalhoICG/images/DNE.png" alt="Variável de decisão NE"></p>
 
-<p>Agora eliminamos as operações pesadas que tínhamos a cada iteração, de forma que agora, precisamos apenas efetuar algumas somas para definir o proximo pixel a ser pintado, então o algoritmo de Braseham é realmente muito eficiente para rasterizar retas.</p>
+<p>Agora eliminamos as operações pesadas que tínhamos a cada iteração, de forma que agora, precisamos apenas efetuar algumas somas para definir o proximo pixel a ser pintado, então o algoritmo de Bresenham é realmente muito eficiente para rasterizar retas.</p>
 
 <h4>
-<a id="generalização-do-algoritimo-de-braseham" class="anchor" href="#generaliza%C3%A7%C3%A3o-do-algoritimo-de-braseham" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Generalização do Algoritimo de Braseham</h4>
+<a id="generalização-do-algoritimo-de-bresenham" class="anchor" href="#generaliza%C3%A7%C3%A3o-do-algoritimo-de-bresenham" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Generalização do Algoritimo de Bresenham</h4>
 
 <p>Nas situações anteriores nos limitamos a retas do primeiro octante (0 a 45°), agora veremos como generalizar a técnica desenvolvida anteriormente, para o restante dos octantes. </p>
 
-<p>Para observar melhor o comportamento das retas em cada octante, a medida que vamos avançando no desenvolvimento, foi criada uma função que desenha os octantes na tela, na cor branca, sem usar a função drawLine, e outra que desenha uma reta de cada octante(partindo do centro da tela) usando a função drawLine, onde está implementado o algoritmo de braseham. Com o algoritimo atual, temos o seguinte resultado:</p>
+<p>Para observar melhor o comportamento das retas em cada octante, a medida que vamos avançando no desenvolvimento, foi criada uma função que desenha os octantes na tela, na cor branca, sem usar a função drawLine, e outra que desenha uma reta de cada octante(partindo do centro da tela) usando a função drawLine, onde está implementado o algoritmo de Bresenham. Com o algoritimo atual, temos o seguinte resultado:</p>
 
 <p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/lineoct1.png" alt="Rasterizada linha do octante 1"></p>
 
@@ -184,8 +184,8 @@ Conseguimos o resultado que queriamos, os pixels do inicio e do final da reta, t
 <h1>
 <a id="extra" class="anchor" href="#extra" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Extra</h1>
 
-<h3>
-<a id="triangulo-preenchido---drawfilledtriangle" class="anchor" href="#triangulo-preenchido---drawfilledtriangle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Triangulo Preenchido - drawFilledTriangle</h3>
+<h2>
+<a id="triangulo-preenchido---drawfilledtriangle" class="anchor" href="#triangulo-preenchido---drawfilledtriangle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Triangulo Preenchido - drawFilledTriangle</h2>
 
 <p>Para desenhar um triângulo preenchido, podemos usar uma variação do algoritmo que desenvolvemos anteriormente para rasterização de linha, da seguinte forma: 
 Digamos que temos um triângulo com vértices nos pontos A, B e C quaisquer, pegamos por exemplo a reta AB, e usamos o algoritmo para determinar a cor(usando interpolação) e quais pixeis devem ser pintados para formar essa reta, mas ao invés de pintarmos esse pixel, desenhamos uma reta do ponto C até cada pixel dessa reta. O resultado deve ser nosso triangulo preenchido, e devidamente interpolado, vejamos:</p>
@@ -197,15 +197,15 @@ Digamos que temos um triângulo com vértices nos pontos A, B e C quaisquer, peg
 
 <p>Agora temos os triângulos preenchidos, sem os pontos pretos e devidamente interpolado.</p>
 
-<h3>
-<a id="desenhar-qualquer-polígono---drawpolygon" class="anchor" href="#desenhar-qualquer-pol%C3%ADgono---drawpolygon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Desenhar qualquer Polígono - drawPolygon</h3>
+<h2>
+<a id="desenhar-qualquer-polígono---drawpolygon" class="anchor" href="#desenhar-qualquer-pol%C3%ADgono---drawpolygon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Desenhar qualquer Polígono - drawPolygon</h2>
 
 <p>Com o que já desenvolvemos, sem muita dificuldade podemos criar uma função para desenhar qualquer polígono. Essa função recebe dois parâmetros: Um conjunto(array) ordenado de pixels que são as arestas do polígono, e  a quantidade desses vértices, a partir dai basta que desenhemos uma linha para cada dois Pixels adjacentes desse conjunto, e também do ultimo pixel ao primeiro.</p>
 
 <p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/drawPolygon.png" alt="Poligono"></p>
 
-<h3>
-<a id="polígono-preenchidos---drawfilledpolygon" class="anchor" href="#pol%C3%ADgono-preenchidos---drawfilledpolygon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Polígono Preenchidos - drawFilledPolygon</h3>
+<h2>
+<a id="polígono-preenchidos---drawfilledpolygon" class="anchor" href="#pol%C3%ADgono-preenchidos---drawfilledpolygon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Polígono Preenchidos - drawFilledPolygon</h2>
 
 <p>Podemos também definir uma função para desenhar um polígono preenchido. Dado um conjunto de pontos(juntamente com a sua quantidade), a função drawFilledPolygon desenha um triangulo preenchido com qualquer subconjunto possível de 3 pontos, passando os mesmos 6 pontos do drawPolygon, esse é o resultado que temos:</p>
 
@@ -214,6 +214,26 @@ Digamos que temos um triângulo com vértices nos pontos A, B e C quaisquer, peg
 <p>Observe que aqui a interpolação não funciona como deveria, isso acontece porque cada vez que desenhamos um triangulo, estamos levando em consideração a cor de apenas 3 pontos, aqui o calculo das cores para interpolação seria bem mais complicado e foge do escopo do trabalho. Então para ficar tão deselegante, podemos receber uma cor em nossa função, e pintar tudo nessa cor, veja um exemplo com a cor branca:</p>
 
 <p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/drawFilledPolygon2.png" alt="Poligono Preenchido"></p>
+
+<h1>
+<a id="possíveis-melhoras" class="anchor" href="#poss%C3%ADveis-melhoras" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Possíveis Melhoras</h1>
+
+<p>A possível melhora mais evidente, e a única que consegui enxergar, é em relação ao desempenho das funções que desenha triângulos e polígonos preenchidos, da forma que está feita, ela pode pintar diversas vezes o mesmo pixel com a mesma cor, desnecessariamente. Mas não consegui pensar em uma forma de "filtrar" esse pixeis para que sejam pintados apenas uma vez sem que talvez piorasse a performance, então ficou pendente.</p>
+
+<h1>
+<a id="dificuldades-encontradas" class="anchor" href="#dificuldades-encontradas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dificuldades Encontradas</h1>
+
+<p>A principal dificuldade com certeza foi para generalizar o algorítimo de Bresenham. Vi alguns exemplos pela web, mas nenhum dos que vi deixava muito claro como faze-lo, e alguns fazia uma verificação (if) para cada octante, para então realizar a tarefa especifica daquele octante e achei aquilo muito deselegante. Acabei tendo que praticamente pensar tudo do zero, e acabei conseguindo generalizar usando apenas 3 verificações, e a parte principal do código independia de octante. Para os octantes 1, 4, 5 e 8 não foi tão difícil de resolver, um pouco de raciocínio e alguns testes e foi resolvido, a partir dai já ficou mais difícil, embora na minha cabeça de certa forma resolveria, quando implementava não saia como esperado, foram várias tentativas, e vários testes e nada. Até que certa hora parecia que tudo estava resolvido, na minha cabeça tudo deveria funcionar, mas para minha surpresa, não estava funcionando para linhas dos octantes 7 e 3. Demorou mais algum tempinho até eu descobrir que era apenas a ordem das verificações, ao ajeitar, ficou tudo certo.</p>
+
+<h1>
+<a id="referências-bibliográficas" class="anchor" href="#refer%C3%AAncias-bibliogr%C3%A1ficas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Referências Bibliográficas</h1>
+
+<ul>
+<li>Aulas e materiais disponibilizados pelo Prof. Christian Pagot</li>
+<li><a href="https://pt.wikipedia.org/wiki/Algoritmo_de_Bresenham">Algoritmo de Bresenham (Wikipedia)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm">Bresenham's line algorithm (Wikipedia)</a></li>
+<li><a href="https://www.cs.helsinki.fi/group/goa/mallinnus/lines/bresenh.html">The Bresenham Line-Drawing Algorithm (Colin Flanagan)</a></li>
+</ul>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/SoaresGabriel/TrabalhoICG">TrabalhoICG</a> is maintained by <a href="https://github.com/SoaresGabriel">SoaresGabriel</a>.</span>
