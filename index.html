@@ -19,8 +19,8 @@
     </section>
 
     <section class="main-content">
-      <h2>
-<a id="introdução" class="anchor" href="#introdu%C3%A7%C3%A3o" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introdução</h2>
+      <h1>
+<a id="introdução" class="anchor" href="#introdu%C3%A7%C3%A3o" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introdução</h1>
 
 <p>Este post faz parte do primeiro trabalho da disciplina Introdução à Computação Gráfica, ministrada pelo Prof. Christian Azambuja Pagot da UFPB, no período 2016.1.</p>
 
@@ -203,6 +203,17 @@ Digamos que temos um triângulo com vértices nos pontos A, B e C quaisquer, peg
 <p>Com o que já desenvolvemos, sem muita dificuldade podemos criar uma função para desenhar qualquer polígono. Essa função recebe dois parâmetros: Um conjunto(array) ordenado de pixels que são as arestas do polígono, e  a quantidade desses vértices, a partir dai basta que desenhemos uma linha para cada dois Pixels adjacentes desse conjunto, e também do ultimo pixel ao primeiro.</p>
 
 <p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/drawPolygon.png" alt="Poligono"></p>
+
+<h3>
+<a id="polígono-preenchidos---drawfilledpolygon" class="anchor" href="#pol%C3%ADgono-preenchidos---drawfilledpolygon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Polígono Preenchidos - drawFilledPolygon</h3>
+
+<p>Podemos também definir uma função para desenhar um polígono preenchido. Dado um conjunto de pontos(juntamente com a sua quantidade), a função drawFilledPolygon desenha um triangulo preenchido com qualquer subconjunto possível de 3 pontos, passando os mesmos 6 pontos do drawPolygon, esse é o resultado que temos:</p>
+
+<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/drawFilledPolygon1.png" alt="Polígono Preenchido"></p>
+
+<p>Observe que aqui a interpolação não funciona como deveria, isso acontece porque cada vez que desenhamos um triangulo, estamos levando em consideração a cor de apenas 3 pontos, aqui o calculo das cores para interpolação seria bem mais complicado e foge do escopo do trabalho. Então para ficar tão deselegante, podemos receber uma cor em nossa função, e pintar tudo nessa cor, veja um exemplo com a cor branca:</p>
+
+<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/drawFilledPolygon2.png" alt="Poligono Preenchido"></p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/SoaresGabriel/TrabalhoICG">TrabalhoICG</a> is maintained by <a href="https://github.com/SoaresGabriel">SoaresGabriel</a>.</span>
