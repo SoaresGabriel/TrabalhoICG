@@ -33,13 +33,13 @@
 
 <p>Cada pixel é representado na memória por um conjunto de 4 bytes, onde o primeiro dizemos que é o byte R(de red, vermelho), o segundo é o G(de green, verde), o terceiro é o B(de blue, azul), e o ultimo o A(alpha, controla a opacidade/transparência), com a combinação destes, podemos formar uma grande porção das cores visíveis ao olho humano. Como cada componente tem 1 byte (8 bits), ela pode assumir 256 valores diferentes que é na faixa de 0 a 255.</p>
 
-<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/pixelscreen.png" alt="Composição de um Pixel"></p>
+<p><img src="images/pixelscreen.png" alt="Composição de um Pixel"></p>
 
 <p>Os pixels são distribuídos na tela como uma matriz (bi-dimensional), mas na memoria eles são armazenados linearmente, de forma que os bytes dos pixeis da segunda linha são armazenados logo após os da primeira e assim sucessivamente. Há uma região reservada da memoria em que esses bytes são gravados, que é chamada de ColorBuffer.</p>
 
 <p>Dessa forma tendo as coordenadas x e y de um pixel, podemos encontrar sua posição na memória através da expressão <code>x*4 + y*W*4</code>, onde a posição 0 indica primeira posição do ColorBuffer(e não da memoria em si).</p>
 
-<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/screenpixel.png" alt="Pixel na memória"></p>
+<p><img src="images/screenpixel.png" alt="Pixel na memória"></p>
 
 <h3>
 <a id="representação-de-primitivas" class="anchor" href="#representa%C3%A7%C3%A3o-de-primitivas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Representação de Primitivas</h3>
@@ -101,12 +101,12 @@ Após escrevermos essas componentes já temos nosso pixel desenhado.</li>
 
 <p>Por enquanto nos limitaremos ao problema de rasterizar linhas de 0° a 45°, e levaremos em consideração que os pixels tem coordenadas como no plano cartesiano (eixo x positivo para direita, eixo y positivo para cima). Vejamos o seguinte exemplo:</p>
 
-<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/linepixel.png" alt="Linha em Pixels"></p>
+<p><img src="images/linepixel.png" alt="Linha em Pixels"></p>
 
 <p>Sabemos que temos que "pintar" o primeiro e último pixel, mas quais pixeis pintar no meio do caminho? Lembrando que a linha deve ser o mais fina possível, então o ideal é que em cada coluna, exatamente um pixel seja pintado, e ainda, que esse pixel pintado, seja o que a reta real passe mais próximo.</p>
 
 <p>Uma solução fácil de ser observada é começarmos a incrementar x, e para cada x nós calculamos o y através da equação da reta, e arredondaríamos esse valor para um valor inteiro, dessa forma teríamos a coordenada y da qual a reta passa mais próximo, então pintaríamos esse pixel, e teríamos o seguinte:
-<img src="https://soaresgabriel.github.io/TrabalhoICG/images/firstline.png" alt="Primeira Rasterização de Linha">
+<img src="images/firstline.png" alt="Primeira Rasterização de Linha">
 Esse é exatamente o resultado que queremos, mas observe que para cada iteração temos: mutiplição de decimais, soma de decimais, arredondamentos, e essas operações são muito caras, então essa resolução não é muito eficiente.</p>
 
 <h4>
@@ -117,13 +117,13 @@ Esse é exatamente o resultado que queremos, mas observe que para cada iteraçã
 <p>O algoritmo de Bresenham parte da equação da reta y=(Δy/Δx)<em>x+b (passando y para a direita)-&gt; (Δy/Δx)</em>x-y+b=0 (mutiplicando por Δx)-&gt; Δy<em>x-Δx</em>y+Δx<em>b=0. Dessa forma obtemos a equação de um plano <code>Φ(x,y)=αx+βy+γ=0</code>, onde α=Δy, β=-Δx</em> e γ= Δx*b. Assim, se aplicarmos um ponto na função Φ(x,y), e o resultado der maior que 0, este ponto esta acima da reta, se der 0, este ponto está na reta, e se der menos que 0, esta abaixo da reta.</p>
 
 <p>Agora vejamos a seguinte situação: 
-<img src="https://soaresgabriel.github.io/TrabalhoICG/images/linealgbras.png" alt="Equação da reta">
+<img src="images/linealgbras.png" alt="Equação da reta">
 Digamos que 'c'=(Xc, Yc) seja um pixel que já foi pintado, como estamos limitados a retas de 0 45°, observamos que o próximo pixel a ser pintado pode ser apenas o e=(Xc+1, Yc) ou o ne=(Xc+1, Yc+1). Para definir qual o Pixel a ser pintado, podemos calcular d=Φ(m), se o valor der positivo, significa que a reta real esta abaixo do ponto médio m, então o pixel a ser pintado deve ser o 'e' e se d der negativo, a reta está acima do ponto m, então devemos pintar o 'ne'.</p>
 
 <p>Agora observe que o valor de decisão 'd' pode ser obtido incrementando um valor ao valor anterior, para o caso onde o pixel 'e' foi escolhido, temos:
-<img src="https://soaresgabriel.github.io/TrabalhoICG/images/DE.png" alt="Variavel de decisão E">
+<img src="images/DE.png" alt="Variavel de decisão E">
 E no caso do pixel 'ne':
-<img src="https://soaresgabriel.github.io/TrabalhoICG/images/DNE.png" alt="Variável de decisão NE"></p>
+<img src="images/DNE.png" alt="Variável de decisão NE"></p>
 
 <p>Agora eliminamos as operações pesadas que tínhamos a cada iteração, de forma que agora, precisamos apenas efetuar algumas somas para definir o proximo pixel a ser pintado, então o algoritmo de Bresenham é realmente muito eficiente para rasterizar retas.</p>
 
@@ -134,28 +134,28 @@ E no caso do pixel 'ne':
 
 <p>Para observar melhor o comportamento das retas em cada octante, a medida que vamos avançando no desenvolvimento, foi criada uma função que desenha os octantes na tela, na cor branca, sem usar a função drawLine, e outra que desenha uma reta de cada octante(partindo do centro da tela) usando a função drawLine, onde está implementado o algoritmo de Bresenham. Com o algoritimo atual, temos o seguinte resultado:</p>
 
-<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/lineoct1.png" alt="Rasterizada linha do octante 1"></p>
+<p><img src="images/lineoct1.png" alt="Rasterizada linha do octante 1"></p>
 
 <p>A reta do primeiro octante foi desenhada, mas as dos demais ou foram desenhadas sobre os eixos dos octantes ou nem chegaram a ser desenhadas.</p>
 
 <p>Vale ressaltar que o plano de pixels tem origem no canto superior esquerdo da tela, de forma que quando a coordenada y do pixel cresce, ele está mais para baixo, ao contrário do plano cartesiano, o qual estávamos representando anteriormente. Dessa forma temos a seguinte configuração:
-<img src="https://soaresgabriel.github.io/TrabalhoICG/images/octantesreal.png" alt="octantes"></p>
+<img src="images/octantesreal.png" alt="octantes"></p>
 
 <p>O algorítimo já está funcionando no 1° octante, agora observe que um segmento de reta cujo coeficiente angular seja do 5° octante, pode ser "transformado" em um segmento de reta do 1° octante (onde o algoritmo funciona) apenas permutando os pontos de inicio e fim da reta, temos essa mesma relação entre os octantes 2,7,8(onde Δx&gt;0) e os octantes 6,3,4(onde Δx&lt;0) respectivamente. Então façamos o seguinte `se Δx&lt;0 -&gt; permuta as extremidades do segmento de reta`, assim, as retas do 3° octante será transformada para o 7°, do 4° para o 8°, do 5° para o 1° (aqui o algoritmo já deve funcionar), então precisamos resolver agora para os octantes 2,7,8, que o resto virá em função desses. Vejamos como fica nossa tela com esta implementação:</p>
 
-<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/lineoct15.png" alt="Rasterizada linhas dos octantes 1 e 5"></p>
+<p><img src="images/lineoct15.png" alt="Rasterizada linhas dos octantes 1 e 5"></p>
 
 <p>Como esperado, a reta do 5° octante foi desenhada, não precisa se preocupar com essas outras retas estranhas que apareceram, elas são as retas que devem ser desenhadas nos outros octantes quando o algoritmo estiver completo.</p>
 
 <p>Para o 1° octante, y aumenta a medida que x aumenta, ou seja, para cada ponto (a,b) pintado, o próximo a ser pintado é o ponto (a+1, b) ou (a+1, b+1), para o oitavo octante, podemos usar a mesma lógica, mas pra ele escolheremos entre os pontos (a+1,b) ou (a+1,b-1), para isso basta que decrementemos a variável de decisão 'd' a cada iteração, ao invés de incrementa-la, e se d for positivo, pintamos (a+1,b), se negativo pintamos (a+1, b-1). Vejamos o resultado ao implementar essa lógica:</p>
 
-<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/lineoct1358.png" alt="Rasterizada linhas nos octantes 1,3,5 e 8"></p>
+<p><img src="images/lineoct1358.png" alt="Rasterizada linhas nos octantes 1,3,5 e 8"></p>
 
 <p>A reta foi rasterizada corretamente, e como previsto anteriormente, a reta do 4° octante também foi desenhada.</p>
 
 <p>Para o octante 2 podemos trocar as coordenadas x e y de cada ponto de forma que ele é refletido para o octante 1 em relação a diagonal, nosso algorítimo consegue calcular os pontos para uma reta do primeiro octante, e depois de fazer o calculo, basta que troquemos novamente as coordenadas, para espelharmos de volta para o segundo octante. Fica mais ou menos assim: <code>se Δx &lt; Δy -&gt; permuta coordenadas dos pontos</code>, e na hora de desenhar na tela, permutamos novamente para voltar ao octante 2. E assim nosso algorítimo já deve desenhar retas do 2 e 6 quadrante, vejamos:</p>
 
-<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/lineallocts.png" alt="Linhas de todos os octantes rasterizadas"></p>
+<p><img src="images/lineallocts.png" alt="Linhas de todos os octantes rasterizadas"></p>
 
 <p>Surpresa! As linhas de todos os octantes foram rasterizadas! Não há nenhum mistério, o mesmo código acima também refletiu o octante 7 no 8 e o 3 no 4, que são octantes que já resolvemos anteriormente, então agora nosso algoritmo consegue desenhar retas com qualquer inclinação! </p>
 
@@ -169,17 +169,17 @@ E no caso do pixel 'ne':
 <p>Vamos exemplificar para o componente R (vermelho) da cor. Digamos que uma reta começa no ponto A, onde o componente vermelho é Ra=100, e termine no ponto B, onde o componente vermelho é de Rb=200, se Δx = 10, o componente R deve ser acrescentado em 10 para cada pixel, de que a reta sai de A com R=100 e chega em B com R=200.</p>
 
 <p>No caso mais geral, podemos definir esse valor que deve ser adicionado por <code>addR=ΔR/Δx</code>, que pode ser interpretado como a taxa de variação de R em relação a x, ou o valor que R para cada vez que x aumenta em 1. Então o valor de R para cada pixel pode ser dado através da relação de recorrência <code>R=Ra+addR</code>, onde Ra agora simboliza o componente R do pixel anterior. Frequentemente esse valor vai dar um número decimal, e os componentes de cores são representados computacionalmente por números inteiros, então neste caso fazemos um trucamento, pois o arredondamento é mais pesado, e a diferença é tão pouca que não se justifica. Agora aplicamos o mesmo processo para as componentes G,B e A, e então já devemos ter nossa interpolação funcionando, vejamos alguns resultados:
-<img src="https://soaresgabriel.github.io/TrabalhoICG/images/intepolation.png" alt="Retas com cores interpoladas">
+<img src="images/intepolation.png" alt="Retas com cores interpoladas">
 Conseguimos o resultado que queriamos, os pixels do inicio e do final da reta, tem o valor que definimos pra eles, e veja esse zoom na reta do 6° octante da 2ª imagem, e perceba o quão imperceptível é a diferença na cor de 2 pixels adjacentes:</p>
 
-<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/interpolationzoom.png" alt="Zoom em reta interpolada"></p>
+<p><img src="images/interpolationzoom.png" alt="Zoom em reta interpolada"></p>
 
 <h2>
 <a id="rasterização-de-triângulos---drawtriangle" class="anchor" href="#rasteriza%C3%A7%C3%A3o-de-tri%C3%A2ngulos---drawtriangle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rasterização de Triângulos - drawTriangle</h2>
 
 <p>Agora que temos o algoritimo que rasteriza linhas, aqui não resta muito o que fazer: nosso algoritimo deve receber os vértices A, B e C do triângulo, e rasterizar 3 linhas entre esses vértices: de A para B, de B para C e de C para A, pronto! já temos nosso triângulo. Observe alguns resultados:</p>
 
-<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/rasttriangles.png" alt="Triângulos rasterizados"> </p>
+<p><img src="images/rasttriangles.png" alt="Triângulos rasterizados"> </p>
 
 <h1>
 <a id="extra" class="anchor" href="#extra" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Extra</h1>
@@ -190,10 +190,10 @@ Conseguimos o resultado que queriamos, os pixels do inicio e do final da reta, t
 <p>Para desenhar um triângulo preenchido, podemos usar uma variação do algoritmo que desenvolvemos anteriormente para rasterização de linha, da seguinte forma: 
 Digamos que temos um triângulo com vértices nos pontos A, B e C quaisquer, pegamos por exemplo a reta AB, e usamos o algoritmo para determinar a cor(usando interpolação) e quais pixeis devem ser pintados para formar essa reta, mas ao invés de pintarmos esse pixel, desenhamos uma reta do ponto C até cada pixel dessa reta. O resultado deve ser nosso triangulo preenchido, e devidamente interpolado, vejamos:</p>
 
-<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/filledtriangles1.png" alt="Triangulos preenchidos com erro"></p>
+<p><img src="images/filledtriangles1.png" alt="Triangulos preenchidos com erro"></p>
 
 <p>Temos quase o resultado que queremos, mas tem alguns pontos pretos nos triângulos, isso acontece por que ao desenhar as retas, alguns pixels acabam não sendo pintados. Para tirar esse erro, podemos fazer o mesmo processo que fizemos da reta AB, para as outras duas retas do triângulo, ou seja, desenhamos retas que vão de A, para cada ponto da reta BC e de B para cada ponto da reta AC.
-<img src="https://soaresgabriel.github.io/TrabalhoICG/images/filledtriangles2.png" alt="Triangulos preenchidos com erro"></p>
+<img src="images/filledtriangles2.png" alt="Triangulos preenchidos com erro"></p>
 
 <p>Agora temos os triângulos preenchidos, sem os pontos pretos e devidamente interpolado.</p>
 
@@ -202,18 +202,18 @@ Digamos que temos um triângulo com vértices nos pontos A, B e C quaisquer, peg
 
 <p>Com o que já desenvolvemos, sem muita dificuldade podemos criar uma função para desenhar qualquer polígono. Essa função recebe dois parâmetros: Um conjunto(array) ordenado de pixels que são as arestas do polígono, e  a quantidade desses vértices, a partir dai basta que desenhemos uma linha para cada dois Pixels adjacentes desse conjunto, e também do ultimo pixel ao primeiro.</p>
 
-<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/drawPolygon.png" alt="Poligono"></p>
+<p><img src="images/drawPolygon.png" alt="Poligono"></p>
 
 <h2>
 <a id="polígono-preenchidos---drawfilledpolygon" class="anchor" href="#pol%C3%ADgono-preenchidos---drawfilledpolygon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Polígono Preenchidos - drawFilledPolygon</h2>
 
 <p>Podemos também definir uma função para desenhar um polígono preenchido. Dado um conjunto de pontos(juntamente com a sua quantidade), a função drawFilledPolygon desenha um triangulo preenchido com qualquer subconjunto possível de 3 pontos, passando os mesmos 6 pontos do drawPolygon, esse é o resultado que temos:</p>
 
-<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/drawFilledPolygon1.png" alt="Polígono Preenchido"></p>
+<p><img src="images/drawFilledPolygon1.png" alt="Polígono Preenchido"></p>
 
 <p>Observe que aqui a interpolação não funciona como deveria, isso acontece porque cada vez que desenhamos um triangulo, estamos levando em consideração a cor de apenas 3 pontos, aqui o calculo das cores para interpolação seria bem mais complicado e foge do escopo do trabalho. Então para ficar tão deselegante, podemos receber uma cor em nossa função, e pintar tudo nessa cor, veja um exemplo com a cor branca:</p>
 
-<p><img src="https://soaresgabriel.github.io/TrabalhoICG/images/drawFilledPolygon2.png" alt="Poligono Preenchido"></p>
+<p><img src="images/drawFilledPolygon2.png" alt="Poligono Preenchido"></p>
 
 <h1>
 <a id="possíveis-melhoras" class="anchor" href="#poss%C3%ADveis-melhoras" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Possíveis Melhoras</h1>
@@ -243,10 +243,10 @@ Mas geralmente o que se faz, é definir um objeto em um espaço próprio (Espaç
 
 <p>O segundo trabalho é justamente implementar um Pipeline Gráfico, para que se possa levar os objetos de seus espaços, para o espaço de tela, para então poderem ser rasterizados com o processo que foi visto neste trabalho.</p>
 
-<p>Este segundo trabalho pode ser visto em: <a href="https://soaresgabriel.github.io/PipelineICG/">https://soaresgabriel.github.io/PipelineICG/</a></p>
+<p>Este segundo trabalho pode ser visto em: <a href="https://gosoares.github.io/PipelineICG/">https://gosoares.github.io/PipelineICG/</a></p>
 
       <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/SoaresGabriel/TrabalhoICG">TrabalhoICG</a> is maintained by <a href="https://github.com/SoaresGabriel">SoaresGabriel</a>.</span>
+        <span class="site-footer-owner"><a href="https://github.com/gosoares/TrabalhoICG">TrabalhoICG</a> is maintained by <a href="https://github.com/gosoares">gosoares</a>.</span>
 
         <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
